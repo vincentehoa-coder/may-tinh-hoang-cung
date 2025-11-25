@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máy Tính Hoàng Cung VIP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .container {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 480px;
+            width: 100%;
+            border: 3px solid #ff8c00;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #8b4513;
+        }
+        
+        .crown {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff8c00, transparent);
+            margin: 20px 0;
+        }
+        
+        .input-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #8b4513;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff8c00;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #ff6347;
+            box-shadow: 0 0 10px rgba(255,99,71,0.3);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .btn-subtract {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+        
+        .btn-multiply {
+            background: linear-gradient(135deg, #4776e6 0%, #8e54e9 100%);
+        }
+        
+        .btn-divide {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .btn-clear {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            grid-column: span 2;
+        }
+        
+        .result {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            border: 2px solid #ff8c00;
+            margin-top: 20px;
+            min-height: 70px;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-title {
+            color: #8b4513;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .result-value {
+            font-size: 22px;
+            color: #ff6347;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .error {
+            color: #dc3545;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8b4513;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .crown {
+                font-size: 40px;
+            }
+            
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="crown">👑</div>
+        <div class="header">
+            <h1>⚜️ MÁY TÍNH HOÀNG CUNG ⚜️</h1>
+            <p>Phiên Bản VIP - Phụng Mệnh Hoàng Thượng</p>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="input-group">
+            <label>📜 Số thứ nhất:</label>
+            <input type="number" id="num1" placeholder="Xin mời Hoàng Thượng nhập số..." step="any">
+        </div>
+        
+        <div class="input-group">
+            <label>📜 Số thứ hai:</label>
+            <input type="number" id="num2" placeholder="Xin mời Hoàng Thượng nhập số..." step="any">
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-add" onclick="calculate('add')">➕ Cộng</button>
+            <button class="btn-subtract" onclick="calculate('subtract')">➖ Trừ</button>
+            <button class="btn-multiply" onclick="calculate('multiply')">✖️ Nhân</button>
+            <button class="btn-divide" onclick="calculate('divide')">➗ Chia</button>
+            <button class="btn-clear" onclick="clearAll()">🗑️ Xóa Tất Cả</button>
+        </div>
+        
+        <div class="result" id="result">
+            <div class="result-title">🎯 Kết quả:</div>
+            <div class="result-value" id="resultValue"></div>
+        </div>
+        
+        <div class="footer">
+            💎 Dự Án C++ của Hoà - Phiên bản Web 💎
+        </div>
+    </div>
+    
+    <script>
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const resultDiv = document.getElementById('result');
+            const resultValue = document.getElementById('resultValue');
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                resultValue.innerHTML = '<div class="error">⚠️ Xin Hoàng Thượng nhập đầy đủ hai số!</div>';
+                resultDiv.classList.add('show');
+                return;
+            }
+            
+            let result;
+            let operationSymbol;
+            
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    operationSymbol = '+';
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    operationSymbol = '-';
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    operationSymbol = '×';
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        resultValue.innerHTML = '<div class="error">⚠️ Không thể chia cho 0!<br>Xin Hoàng Thượng lượng thứ!</div>';
+                        resultDiv.classList.add('show');
+                        return;
+                    }
+                    result = num1 / num2;
+                    operationSymbol = '÷';
+                    break;
+            }
+            
+            resultValue.innerHTML = `${num1} ${operationSymbol} ${num2} = <strong>${result.toFixed(4)}</strong>`;
+            resultDiv.classList.add('show');
+        }
+        
+        function clearAll() {
+            document.getElementById('num1').value = '';
+            document.getElementById('num2').value = '';
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('num1').focus();
+        }
+        
+        // Cho phép nhấn Enter để chuyển ô
+        document.getElementById('num1').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('num2').focus();
+            }
+        });
+        
+        document.getElementById('num2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculate('add');
+            }
+        });
+        
+        // Auto focus vào ô đầu tiên
+        window.onload = function() {
+            document.getElementById('num1').focus();
+        };
+    </script>
+</body>
+</html>
